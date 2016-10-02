@@ -24,14 +24,20 @@ demonstrate = function () {
 
     "use strict";
 
-    var net, phenotype, duration;
+    var options, net, phenotype;
 
-    duration = Infinity;
+    options = {};
+    options.withVelocities = true;
+    options.isUpright = true;
+    options.polePushes = [0, 0.3];
+    options.calculateBehavior = false;
+    options.simulationDuration = Infinity;
+    options.display = true;
 
     phenotype = JSON.stringify(require('./latest-solution.json'));
     net = swirlnet.makeNet(phenotype);
 
-    return doublePendulumTesters.getDoublePendulumTester(true, true, [0, 0.3], false)(net, duration, true).then(function () {
+    return doublePendulumTesters.testDoublePendulum(net, options).then(function () {
 
         return demonstrate();
     });

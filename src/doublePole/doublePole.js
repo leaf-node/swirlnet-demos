@@ -13,38 +13,45 @@
 // limitations under the License.
 
 
-var phyzzie, testDoublePole, getDoublePoleTester;
+var phyzzie, testDoublePole;
 
 phyzzie = require('phyzzie');
 
 // tests a net in double pole experiment
-testDoublePole = function (net, withVelocities, simulationDuration, display) {
+testDoublePole = function (net, options) {
 
     "use strict";
 
     var elapsedSimTime, interactionCallback,
         fitnessRecord, forceNormalization,
-        things, colors, options,
+        things, colors, phyzzieOptions,
         calculateFitness, resultsPromise;
+
+    console.assert(typeof net === "object" || net === undefined, "doublePendulum.js: error: network parameter must be an object or undefined");
+    console.assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
+
+    console.assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
+    console.assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
+    console.assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
 
 
     things = JSON.stringify(require('./things/things.json'));
     colors = JSON.stringify(require('./things/colors.json'));
 
-    options = {};
-    options.sim = {};
-    options.sim.interactionsPerSecond   = 60;
-    options.sim.simStepsPerInteraction  = 1;
-    options.sim.maxStepMilliseconds     = 100;
-    options.graphics = {};
-    options.graphics.display            = display;
+    phyzzieOptions = {};
+    phyzzieOptions.sim = {};
+    phyzzieOptions.sim.interactionsPerSecond   = 60;
+    phyzzieOptions.sim.simStepsPerInteraction  = 1;
+    phyzzieOptions.sim.maxStepMilliseconds     = 100;
+    phyzzieOptions.graphics = {};
+    phyzzieOptions.graphics.display            = options.display;
 
-    //options.graphics.height             = 600;
-    //options.graphics.width              = 800;
-    //options.graphics.scale              = 300;
-    //options.graphics.lineWidth          = 1;
-    //options.graphics.targetDiv          = "#draw";
-    //options.graphics.renderOptions      = {"transparent": true};
+    //phyzzieOptions.graphics.height             = 600;
+    //phyzzieOptions.graphics.width              = 800;
+    //phyzzieOptions.graphics.scale              = 300;
+    //phyzzieOptions.graphics.lineWidth          = 1;
+    //phyzzieOptions.graphics.targetDiv          = "#draw";
+    //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
 
     fitnessRecord = [];
@@ -77,7 +84,7 @@ testDoublePole = function (net, withVelocities, simulationDuration, display) {
 
         if (net !== undefined) {
 
-            if (withVelocities) {
+            if (options.withVelocities) {
                 inputs = [p0[0], a1, a2, v0, v1, v2];
             } else {
                 inputs = [p0[0], a1, a2];
@@ -124,7 +131,7 @@ testDoublePole = function (net, withVelocities, simulationDuration, display) {
             return false;
         }
         // long enough
-        if (elapsedSimTime > simulationDuration) {
+        if (elapsedSimTime > options.simulationDuration) {
             resolve({"fitness": calculateFitness(fitnessRecord)});
             return false;
         }
@@ -135,7 +142,7 @@ testDoublePole = function (net, withVelocities, simulationDuration, display) {
     calculateFitness = function (fitnessRecord) {
 
         var fitness;
-        fitness = fitnessRecord.reduce(function (a, b) { return a + b; }) / options.sim.interactionsPerSecond;
+        fitness = fitnessRecord.reduce(function (a, b) { return a + b; }) / phyzzieOptions.sim.interactionsPerSecond;
         return fitness;
     };
 
@@ -146,19 +153,10 @@ testDoublePole = function (net, withVelocities, simulationDuration, display) {
 
     // asynchronous
     // calls interactionCallback
-    resultsPromise = phyzzie(things, colors, interactionCallback, options);
+    resultsPromise = phyzzie(things, colors, interactionCallback, phyzzieOptions);
 
     return resultsPromise;
 };
 
-getDoublePoleTester = function (withVelocities) {
-
-    "use strict";
-
-    return function (net, simulationDuration, display) {
-        return testDoublePole(net, withVelocities, simulationDuration, display);
-    };
-};
-
-module.exports = getDoublePoleTester;
+module.exports = testDoublePole;
 

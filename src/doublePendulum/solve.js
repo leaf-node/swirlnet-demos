@@ -25,18 +25,7 @@ solve = function () {
 
     "use strict";
 
-    var inputCount, outputCount, fitnessTarget, noveltySearch,
-        maxSimulationDuration, maxGenerations, genomeSettings;
-
-    inputCount = 8;
-    outputCount = 1;
-
-    fitnessTarget = 830;
-    maxGenerations = 2000;
-
-    maxSimulationDuration = 60;
-
-    noveltySearch = false;
+    var netSolveOptions, genomeSettings, doNoveltySearch;
 
     genomeSettings = {
 
@@ -50,7 +39,27 @@ solve = function () {
         "allowRecurrent":               true
     };
 
-    return swirlnetSolverAsync(inputCount, outputCount, doublePendulumTesters.getMultiDoublePendulumTester(true, noveltySearch), maxSimulationDuration, genomeSettings, fitnessTarget, maxGenerations, noveltySearch);
+    doNoveltySearch = false;
+
+    netSolveOptions = {};
+    netSolveOptions.inputCount = 8;
+    netSolveOptions.outputCount = 1;
+    netSolveOptions.useWorkers = false;
+    netSolveOptions.testFunction = doublePendulumTesters.multiTestDoublePendulum;
+    netSolveOptions.fitnessTarget = 830;
+    netSolveOptions.maxGenerations = 2000;
+    netSolveOptions.doNoveltySearch = doNoveltySearch;
+
+    netSolveOptions.genomeSettings = genomeSettings;
+
+    netSolveOptions.testFunctionOptions = {};
+    netSolveOptions.testFunctionOptions.withVelocities = true;
+    netSolveOptions.testFunctionOptions.calculateBehavior = doNoveltySearch;
+    netSolveOptions.testFunctionOptions.simulationDuration = 60;
+    netSolveOptions.testFunctionOptions.display = false;
+
+
+    return swirlnetSolverAsync(netSolveOptions);
 };
 
 solve().catch(function (error) {

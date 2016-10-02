@@ -15,26 +15,17 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, getDoublePoleTester, solve;
+var swirlnetSolverAsync, doublePoleTester, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
 
-getDoublePoleTester = require('./doublePole.js');
+doublePoleTester = require('./doublePole.js');
 
 solve = function () {
 
     "use strict";
 
-    var inputCount, outputCount, fitnessTarget,
-        maxSimulationDuration, maxGenerations, genomeSettings;
-
-    inputCount = 6;
-    outputCount = 1;
-
-    fitnessTarget = 30 * 60;
-    maxGenerations = 1000;
-
-    maxSimulationDuration = 31 * 60;
+    var netSolveOptions, genomeSettings;
 
     genomeSettings = {
 
@@ -48,7 +39,23 @@ solve = function () {
         "allowRecurrent":               true
     };
 
-    return swirlnetSolverAsync(inputCount, outputCount, getDoublePoleTester(true), maxSimulationDuration, genomeSettings, fitnessTarget, maxGenerations, false);
+    netSolveOptions = {};
+    netSolveOptions.inputCount = 6;
+    netSolveOptions.outputCount = 1;
+    netSolveOptions.useWorkers = false;
+    netSolveOptions.testFunction = doublePoleTester;
+    netSolveOptions.fitnessTarget = 30 * 60;
+    netSolveOptions.maxGenerations = 1000;
+    netSolveOptions.doNoveltySearch = false;
+
+    netSolveOptions.genomeSettings = genomeSettings;
+
+    netSolveOptions.testFunctionOptions = {};
+    netSolveOptions.testFunctionOptions.withVelocities = true;
+    netSolveOptions.testFunctionOptions.simulationDuration = 31 * 60;
+    netSolveOptions.testFunctionOptions.display = false;
+
+    return swirlnetSolverAsync(netSolveOptions);
 };
 
 solve().catch(function (error) {

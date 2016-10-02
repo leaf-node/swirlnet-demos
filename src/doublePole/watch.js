@@ -15,23 +15,26 @@
 // limitations under the License.
 
 
-var swirlnet, getDoublePoleTester, demonstrate;
+var swirlnet, doublePoleTester, demonstrate;
 
 swirlnet = require('swirlnet');
-getDoublePoleTester = require('./doublePole.js');
+doublePoleTester = require('./doublePole.js');
 
 demonstrate = function () {
 
     "use strict";
 
-    var net, phenotype, duration;
+    var options, net, phenotype;
 
-    duration = Infinity;
+    options = {};
+    options.withVelocities = true;
+    options.simulationDuration = Infinity;
+    options.display = true;
 
     phenotype = JSON.stringify(require('./latest-solution.json'));
     net = swirlnet.makeNet(phenotype);
 
-    return getDoublePoleTester(true)(net, duration, true).then(function () {
+    return doublePoleTester(net, options).then(function () {
 
         return demonstrate();
     });

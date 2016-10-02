@@ -15,24 +15,32 @@
 /*global Promise */
 /*jslint unparam: true */
 
-var phyzzie, testDoublePendulum, getDoublePendulumTester,
-    getMultiDoublePendulumTester;
+var phyzzie, testDoublePendulum, multiTestDoublePendulum;
 
 phyzzie = require('phyzzie');
 
 // tests a net in double pendulum experiment
-testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calculateBehavior, simulationDuration, display) {
+testDoublePendulum = function (net, options) {
 
     "use strict";
 
     var ticks, interactionCallback,
         fitnessRecord, behavior,
         forceNormalization, maxTickCount,
-        things, colors, options,
+        things, colors, phyzzieOptions,
         calculateFitness, resultsPromise;
 
+    console.assert(typeof net === "object" || net === undefined, "doublePendulum.js: error: network parameter must be an object or undefined");
+    console.assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
 
-    if (isUpright) {
+    console.assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
+    console.assert(typeof options.isUpright === "boolean", "doublePendulum.js: error: isUpright option must be a boolean");
+    console.assert(Array.isArray(options.polePushes), "doublePendulum.js: error: polePushes option must be an array");
+    console.assert(typeof options.calculateBehavior === "boolean", "doublePendulum.js: error: calculateBehavior option must be a boolean");
+    console.assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
+    console.assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
+
+    if (options.isUpright) {
         things = JSON.stringify(require('./things/thingsUpright.json'));
     } else {
         things = JSON.stringify(require('./things/thingsDownward.json'));
@@ -40,20 +48,20 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
     colors = JSON.stringify(require('./things/colors.json'));
 
-    options = {};
-    options.sim = {};
-    options.sim.interactionsPerSecond   = 60;
-    options.sim.simStepsPerInteraction  = 1;
-    options.sim.maxStepMilliseconds     = 100;
-    options.graphics = {};
-    options.graphics.display            = display;
+    phyzzieOptions = {};
+    phyzzieOptions.sim = {};
+    phyzzieOptions.sim.interactionsPerSecond   = 60;
+    phyzzieOptions.sim.simStepsPerInteraction  = 1;
+    phyzzieOptions.sim.maxStepMilliseconds     = 100;
+    phyzzieOptions.graphics = {};
+    phyzzieOptions.graphics.display            = options.display;
 
-    //options.graphics.height             = 600;
-    //options.graphics.width              = 800;
-    //options.graphics.scale              = 300;
-    //options.graphics.lineWidth          = 1;
-    //options.graphics.targetDiv          = "#draw";
-    //options.graphics.renderOptions      = {"transparent": true};
+    //phyzzieOptions.graphics.height             = 600;
+    //phyzzieOptions.graphics.width              = 800;
+    //phyzzieOptions.graphics.scale              = 300;
+    //phyzzieOptions.graphics.lineWidth          = 1;
+    //phyzzieOptions.graphics.targetDiv          = "#draw";
+    //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
 
     fitnessRecord = [];
@@ -61,7 +69,7 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
     forceNormalization  = 0.01;
 
-    maxTickCount = options.sim.interactionsPerSecond * simulationDuration;
+    maxTickCount = phyzzieOptions.sim.interactionsPerSecond * options.simulationDuration;
 
     ticks               = 0;
 
@@ -91,13 +99,13 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
         if (ticks === 1) {
 
-            things.pendulum1.push([polePushes[0] * forceNormalization, 0]);
-            things.pendulum2.push([polePushes[1] * forceNormalization, 0]);
+            things.pendulum1.push([options.polePushes[0] * forceNormalization, 0]);
+            things.pendulum2.push([options.polePushes[1] * forceNormalization, 0]);
         }
 
         if (net !== undefined) {
 
-            if (withVelocities) {
+            if (options.withVelocities) {
                 inputs = [p0[0], sin1, cos1, sin2, cos2, v0, av1, av2];
             } else {
                 inputs = [p0[0], sin1, cos1, sin2, cos2];
@@ -133,7 +141,7 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
         fitnessRecord.push(fitnessPoint);
 
-        if (calculateBehavior && ticks % options.sim.interactionsPerSecond === 1) {
+        if (options.calculateBehavior && ticks % phyzzieOptions.sim.interactionsPerSecond === 1) {
 
             behavior = behavior.concat((cos1 + 1) / 2, (cos2 + 1) / 2);
             behavior = behavior.concat((sin1 + 1) / 2, (sin2 + 1) / 2);
@@ -144,12 +152,12 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
             fitness = calculateFitness(fitnessRecord);
 
-            if (calculateBehavior) {
+            if (options.calculateBehavior) {
 
-                console.assert(simulationDuration !== Infinity, "doublePendulum: simulation duration must not be infinite when calculating behaviors.");
+                console.assert(options.simulationDuration !== Infinity, "doublePendulum: simulation duration must not be infinite when calculating behaviors.");
 
                 // this is hackish
-                remainingBehaviorPoints = Math.floor(simulationDuration - ticks / options.sim.interactionsPerSecond);
+                remainingBehaviorPoints = Math.floor(options.simulationDuration - ticks / phyzzieOptions.sim.interactionsPerSecond);
 
                 // hackish too
                 for (i = 0; i < remainingBehaviorPoints; i += 1) {
@@ -173,7 +181,7 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
     calculateFitness = function (fitnessRecord) {
 
         var fitness;
-        fitness = fitnessRecord.reduce(function (a, b) { return a + b; }) / options.sim.interactionsPerSecond;
+        fitness = fitnessRecord.reduce(function (a, b) { return a + b; }) / phyzzieOptions.sim.interactionsPerSecond;
         return fitness;
     };
 
@@ -184,68 +192,60 @@ testDoublePendulum = function (net, withVelocities, isUpright, polePushes, calcu
 
     // asynchronous
     // calls interactionCallback
-    resultsPromise = phyzzie(things, colors, interactionCallback, options);
+    resultsPromise = phyzzie(things, colors, interactionCallback, phyzzieOptions);
 
     return resultsPromise;
 };
 
-getDoublePendulumTester = function (withVelocities, isUpright, polePushes, calculateBehavior) {
+multiTestDoublePendulum = function (net, options) {
 
     "use strict";
 
-    return function (net, simulationDuration, display) {
-        return testDoublePendulum(net, withVelocities, isUpright, polePushes, calculateBehavior, simulationDuration, display);
-    };
-};
+    var promiseChain, makeChainableTest;
 
-getMultiDoublePendulumTester = function (withVelocities, calculateBehavior) {
+    makeChainableTest = function (isUpright, polePushes) {
 
-    "use strict";
+        return function (prevResults) {
 
-    return function (net, simulationDuration, display) {
+            var nextResultsPromise;
 
-        var promiseChain, makeChainableTest;
+            options.isUpright = isUpright;
+            options.polePushes = polePushes;
 
-        makeChainableTest = function (isUpright, polePushes) {
+            nextResultsPromise = testDoublePendulum(net, options);
 
-            return function (prevResults) {
-                var nextResultsPromise;
-
-                nextResultsPromise = testDoublePendulum(net, withVelocities, isUpright, polePushes, calculateBehavior, simulationDuration, display);
-
-                return nextResultsPromise.then(function (nextResults) {
-                    if (calculateBehavior) {
-                        return {"fitness": prevResults.fitness + nextResults.fitness, "behavior": prevResults.behavior.concat(nextResults.behavior)};
-                    }
-                    return {"fitness": prevResults.fitness + nextResults.fitness};
-                });
-            };
+            return nextResultsPromise.then(function (nextResults) {
+                if (options.calculateBehavior) {
+                    return {"fitness": prevResults.fitness + nextResults.fitness, "behavior": prevResults.behavior.concat(nextResults.behavior)};
+                }
+                return {"fitness": prevResults.fitness + nextResults.fitness};
+            });
         };
-
-        promiseChain = Promise.resolve({"fitness": 0, "behavior": []});
-
-        promiseChain = promiseChain.then(makeChainableTest(false, [0, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0]));
-
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0.1, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.1]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [-0.1, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.1]));
-
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0.3, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.3]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [-0.3, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.3]));
-
-        promiseChain = promiseChain.then(makeChainableTest(true,  [1, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, 1]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [-1, 0]));
-        promiseChain = promiseChain.then(makeChainableTest(true,  [0, -1]));
-
-        return promiseChain;
     };
+
+    promiseChain = Promise.resolve({"fitness": 0, "behavior": []});
+
+    promiseChain = promiseChain.then(makeChainableTest(false, [0, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0]));
+
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0.1, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.1]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [-0.1, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.1]));
+
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0.3, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.3]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [-0.3, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.3]));
+
+    promiseChain = promiseChain.then(makeChainableTest(true,  [1, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 1]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [-1, 0]));
+    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -1]));
+
+    return promiseChain;
 };
 
-module.exports.getDoublePendulumTester = getDoublePendulumTester;
-module.exports.getMultiDoublePendulumTester = getMultiDoublePendulumTester;
+module.exports.testDoublePendulum = testDoublePendulum;
+module.exports.multiTestDoublePendulum = multiTestDoublePendulum;
 

@@ -15,15 +15,22 @@
 // limitations under the License.
 
 
-var watchDoNothing, getDoublePoleTester;
+var watchDoNothing, doublePoleTester;
 
-getDoublePoleTester = require('./doublePole.js');
+doublePoleTester = require('./doublePole.js');
 
 watchDoNothing = function () {
 
     "use strict";
 
-    return getDoublePoleTester()(undefined, 1000, true);
+    var options;
+
+    options = {};
+    options.withVelocities = true;
+    options.simulationDuration = 1000;
+    options.display = true;
+
+    return doublePoleTester(undefined, options);
 };
 
 watchDoNothing().catch(function (error) {

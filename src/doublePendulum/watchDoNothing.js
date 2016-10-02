@@ -23,7 +23,17 @@ watchDoNothing = function () {
 
     "use strict";
 
-    return doublePendulumTesters.getDoublePendulumTester(true, true, [0, 0.3])(undefined, 1000, true);
+    var options;
+
+    options = {};
+    options.withVelocities = true;
+    options.isUpright = true;
+    options.polePushes = [0, 0.3];
+    options.calculateBehavior = false;
+    options.simulationDuration = 1000;
+    options.display = true;
+
+    return doublePendulumTesters.testDoublePendulum(undefined, options);
 };
 
 watchDoNothing().catch(function (error) {
