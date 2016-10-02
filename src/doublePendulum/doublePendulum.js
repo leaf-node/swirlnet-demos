@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*global Promise */
+
 /*jslint unparam: true */
 
 var phyzzie, testDoublePendulum, multiTestDoublePendulum;
@@ -197,55 +197,5 @@ testDoublePendulum = function (net, options) {
     return resultsPromise;
 };
 
-multiTestDoublePendulum = function (net, options) {
-
-    "use strict";
-
-    var promiseChain, makeChainableTest;
-
-    makeChainableTest = function (isUpright, polePushes) {
-
-        return function (prevResults) {
-
-            var nextResultsPromise;
-
-            options.isUpright = isUpright;
-            options.polePushes = polePushes;
-
-            nextResultsPromise = testDoublePendulum(net, options);
-
-            return nextResultsPromise.then(function (nextResults) {
-                if (options.calculateBehavior) {
-                    return {"fitness": prevResults.fitness + nextResults.fitness, "behavior": prevResults.behavior.concat(nextResults.behavior)};
-                }
-                return {"fitness": prevResults.fitness + nextResults.fitness};
-            });
-        };
-    };
-
-    promiseChain = Promise.resolve({"fitness": 0, "behavior": []});
-
-    promiseChain = promiseChain.then(makeChainableTest(false, [0, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0]));
-
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0.1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.1]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [-0.1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.1]));
-
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0.3, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.3]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [-0.3, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.3]));
-
-    promiseChain = promiseChain.then(makeChainableTest(true,  [1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 1]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [-1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -1]));
-
-    return promiseChain;
-};
-
-module.exports.testDoublePendulum = testDoublePendulum;
-module.exports.multiTestDoublePendulum = multiTestDoublePendulum;
+module.exports = testDoublePendulum;
 

@@ -15,9 +15,9 @@
 // limitations under the License.
 
 
-var watchDoNothing, doublePendulumTesters;
+var watchDoNothing, testDoublePendulum;
 
-doublePendulumTesters = require('./doublePendulum.js');
+testDoublePendulum = require('./doublePendulum.js');
 
 watchDoNothing = function () {
 
@@ -33,7 +33,7 @@ watchDoNothing = function () {
     options.simulationDuration = 1000;
     options.display = true;
 
-    return doublePendulumTesters.testDoublePendulum(undefined, options);
+    return testDoublePendulum(undefined, options);
 };
 
 watchDoNothing().catch(function (error) {

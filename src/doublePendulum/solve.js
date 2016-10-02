@@ -15,11 +15,10 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, doublePendulumTesters, solve;
+var swirlnetSolverAsync, multiTestDoublePendulum, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
-
-doublePendulumTesters = require('./doublePendulum.js');
+multiTestDoublePendulum = require('./doublePendulum-multi.js');
 
 solve = function () {
 
@@ -45,7 +44,7 @@ solve = function () {
     netSolveOptions.inputCount = 8;
     netSolveOptions.outputCount = 1;
     netSolveOptions.useWorkers = false;
-    netSolveOptions.testFunction = doublePendulumTesters.multiTestDoublePendulum;
+    netSolveOptions.testFunction = multiTestDoublePendulum;
     netSolveOptions.fitnessTarget = 830;
     netSolveOptions.maxGenerations = 2000;
     netSolveOptions.doNoveltySearch = doNoveltySearch;

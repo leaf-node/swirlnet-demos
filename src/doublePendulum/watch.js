@@ -15,10 +15,10 @@
 // limitations under the License.
 
 
-var swirlnet, doublePendulumTesters, demonstrate;
+var swirlnet, testDoublePendulum, demonstrate;
 
 swirlnet = require('swirlnet');
-doublePendulumTesters = require('./doublePendulum.js');
+testDoublePendulum = require('./doublePendulum.js');
 
 demonstrate = function () {
 
@@ -37,7 +37,7 @@ demonstrate = function () {
     phenotype = JSON.stringify(require('./latest-solution.json'));
     net = swirlnet.makeNet(phenotype);
 
-    return doublePendulumTesters.testDoublePendulum(net, options).then(function () {
+    return testDoublePendulum(net, options).then(function () {
 
         return demonstrate();
     });
