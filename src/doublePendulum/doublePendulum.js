@@ -79,8 +79,6 @@ testDoublePendulum = function (net, options) {
             sin1, cos1, sin2, cos2, centerCloseness, fitnessPoint, fitness,
             i, remainingBehaviorPoints;
 
-        ticks += 1;
-
         p0 = things.base.getPosition();
         v0 = things.base.getVelocity()[0];
 
@@ -97,7 +95,7 @@ testDoublePendulum = function (net, options) {
         sin2 = Math.sin(a2);
         cos2 = Math.cos(a2);
 
-        if (ticks === 1) {
+        if (ticks === 0) {
 
             things.pendulum1.push([options.polePushes[0] * forceNormalization, 0]);
             things.pendulum2.push([options.polePushes[1] * forceNormalization, 0]);
@@ -141,7 +139,7 @@ testDoublePendulum = function (net, options) {
 
         fitnessRecord.push(fitnessPoint);
 
-        if (options.calculateBehavior && ticks % phyzzieOptions.sim.interactionsPerSecond === 1) {
+        if (options.calculateBehavior && ticks % phyzzieOptions.sim.interactionsPerSecond === 0) {
 
             behavior = behavior.concat((cos1 + 1) / 2, (cos2 + 1) / 2);
             behavior = behavior.concat((sin1 + 1) / 2, (sin2 + 1) / 2);
@@ -156,10 +154,8 @@ testDoublePendulum = function (net, options) {
 
                 console.assert(options.simulationDuration !== Infinity, "doublePendulum: simulation duration must not be infinite when calculating behaviors.");
 
-                // this is hackish
-                remainingBehaviorPoints = Math.floor(options.simulationDuration - ticks / phyzzieOptions.sim.interactionsPerSecond);
+                remainingBehaviorPoints = Math.floor(options.simulationDuration) - Math.floor(ticks / phyzzieOptions.sim.interactionsPerSecond);
 
-                // hackish too
                 for (i = 0; i < remainingBehaviorPoints; i += 1) {
 
                     behavior = behavior.concat([0, 0, 0, 0]);
@@ -174,6 +170,8 @@ testDoublePendulum = function (net, options) {
 
             return false;
         }
+
+        ticks += 1;
 
         return true;
     };
