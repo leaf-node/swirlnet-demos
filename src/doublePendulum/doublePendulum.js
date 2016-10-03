@@ -162,7 +162,7 @@ testDoublePendulum = function (net, options) {
                 // hackish too
                 for (i = 0; i < remainingBehaviorPoints; i += 1) {
 
-                    behavior = behavior.concat([0, 0]);
+                    behavior = behavior.concat([0, 0, 0, 0]);
                 }
 
                 resolve({"fitness": fitness, "behavior": behavior});
