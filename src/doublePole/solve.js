@@ -44,7 +44,7 @@ solve = function () {
     netSolveOptions.outputCount = 1;
     netSolveOptions.useWorkers = false;
     netSolveOptions.testFunction = doublePoleTester;
-    netSolveOptions.fitnessTarget = 30 * 60;
+    netSolveOptions.fitnessTarget = 55;
     netSolveOptions.maxGenerations = 1000;
     netSolveOptions.doNoveltySearch = false;
 
@@ -52,7 +52,7 @@ solve = function () {
 
     netSolveOptions.testFunctionOptions = {};
     netSolveOptions.testFunctionOptions.withVelocities = true;
-    netSolveOptions.testFunctionOptions.simulationDuration = 31 * 60;
+    netSolveOptions.testFunctionOptions.simulationDuration = 60;
     netSolveOptions.testFunctionOptions.display = false;
 
     return swirlnetSolverAsync(netSolveOptions);
