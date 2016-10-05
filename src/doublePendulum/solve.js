@@ -15,10 +15,11 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, multiTestDoublePendulum, solve;
+var swirlnetSolverAsync, multiTestDoublePendulum, path, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
 multiTestDoublePendulum = require('./doublePendulum-multi.js');
+path = require('path');
 
 solve = function () {
 
@@ -43,19 +44,30 @@ solve = function () {
     netSolveOptions = {};
     netSolveOptions.inputCount = 8;
     netSolveOptions.outputCount = 1;
-    netSolveOptions.useWorkers = false;
-    netSolveOptions.testFunction = multiTestDoublePendulum;
+
+    netSolveOptions.genomeSettings = genomeSettings;
+
     netSolveOptions.fitnessTarget = 830;
     netSolveOptions.maxGenerations = 2000;
     netSolveOptions.doNoveltySearch = doNoveltySearch;
 
-    netSolveOptions.genomeSettings = genomeSettings;
+    netSolveOptions.useWorkers = true;
+    //netSolveOptions.testFunction = multiTestDoublePendulum;
+    netSolveOptions.workerCount = 4;
+    /*jslint nomen: true*/
+    netSolveOptions.workerPath = path.join(__dirname, "worker.js");
+    /*jslint nomen: false*/
 
     netSolveOptions.testFunctionOptions = {};
     netSolveOptions.testFunctionOptions.withVelocities = true;
     netSolveOptions.testFunctionOptions.calculateBehavior = doNoveltySearch;
     netSolveOptions.testFunctionOptions.simulationDuration = 60;
     netSolveOptions.testFunctionOptions.display = false;
+
+    //netSolveOptions.noveltySearchOptions = {};
+    //netSolveOptions.noveltySearchOptions.kNearestNeighbors = 15;
+    //netSolveOptions.noveltySearchOptions.archiveThreshold = 6;
+    //netSolveOptions.noveltySearchOptions.behaviorDistanceFunction = function () { return 100; };
 
 
     return swirlnetSolverAsync(netSolveOptions);

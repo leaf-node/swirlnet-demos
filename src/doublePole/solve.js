@@ -15,9 +15,10 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, doublePoleTester, solve;
+var swirlnetSolverAsync, doublePoleTester, path, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
+path = require('path');
 
 doublePoleTester = require('./doublePole.js');
 
@@ -42,13 +43,20 @@ solve = function () {
     netSolveOptions = {};
     netSolveOptions.inputCount = 6;
     netSolveOptions.outputCount = 1;
-    netSolveOptions.useWorkers = false;
-    netSolveOptions.testFunction = doublePoleTester;
+
+    netSolveOptions.genomeSettings = genomeSettings;
+
     netSolveOptions.fitnessTarget = 55;
     netSolveOptions.maxGenerations = 1000;
     netSolveOptions.doNoveltySearch = false;
 
-    netSolveOptions.genomeSettings = genomeSettings;
+    netSolveOptions.useWorkers = true;
+    //netSolveOptions.testFunction = doublePoleTester;
+    netSolveOptions.workerCount = 4;
+    /*jslint nomen: true*/
+    netSolveOptions.workerPath = path.join(__dirname, "worker.js");
+    /*jslint nomen: false*/
+
 
     netSolveOptions.testFunctionOptions = {};
     netSolveOptions.testFunctionOptions.withVelocities = true;
