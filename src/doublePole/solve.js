@@ -15,9 +15,10 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, doublePoleTester, path, solve;
+var swirlnetSolverAsync, doublePoleTester, os, path, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
+os = require('os');
 path = require('path');
 
 doublePoleTester = require('./doublePole.js');
@@ -52,7 +53,7 @@ solve = function () {
 
     netSolveOptions.useWorkers = true;
     //netSolveOptions.testFunction = doublePoleTester;
-    netSolveOptions.workerCount = 4;
+    netSolveOptions.workerCount = os.cpus().length;
     /*jslint nomen: true*/
     netSolveOptions.workerPath = path.join(__dirname, "worker.js");
     /*jslint nomen: false*/

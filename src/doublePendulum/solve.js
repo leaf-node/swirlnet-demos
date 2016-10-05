@@ -15,10 +15,11 @@
 // limitations under the License.
 
 
-var swirlnetSolverAsync, multiTestDoublePendulum, path, solve;
+var swirlnetSolverAsync, multiTestDoublePendulum, os, path, solve;
 
 swirlnetSolverAsync = require('swirlnet-solver-async');
 multiTestDoublePendulum = require('./doublePendulum-multi.js');
+os = require('os');
 path = require('path');
 
 solve = function () {
@@ -53,7 +54,7 @@ solve = function () {
 
     netSolveOptions.useWorkers = true;
     //netSolveOptions.testFunction = multiTestDoublePendulum;
-    netSolveOptions.workerCount = 4;
+    netSolveOptions.workerCount = os.cpus().length;
     /*jslint nomen: true*/
     netSolveOptions.workerPath = path.join(__dirname, "worker.js");
     /*jslint nomen: false*/
