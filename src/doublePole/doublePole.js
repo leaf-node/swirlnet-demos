@@ -27,7 +27,7 @@ testDoublePole = function (net, options) {
         things, colors, phyzzieOptions,
         calculateFitness, resultsPromise;
 
-    console.assert(typeof net === "object" || net === undefined, "doublePendulum.js: error: network parameter must be an object or undefined");
+    console.assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
     console.assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
 
     console.assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
@@ -82,7 +82,7 @@ testDoublePole = function (net, options) {
         }
 
 
-        if (net !== undefined) {
+        if (net !== null) {
 
             if (options.withVelocities) {
                 inputs = [p0[0], a1, a2, v0, v1, v2];
@@ -147,7 +147,7 @@ testDoublePole = function (net, options) {
     };
 
 
-    if (net !== undefined) {
+    if (net !== null) {
         net.flush();
     }
 

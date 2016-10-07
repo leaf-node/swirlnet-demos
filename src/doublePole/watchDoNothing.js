@@ -28,7 +28,7 @@ watchDoNothing = function () {
     options.simulationDuration = 1000;
     options.display = true;
 
-    return doublePoleTester(undefined, options);
+    return doublePoleTester(null, options);
 };
 
 watchDoNothing().catch(function (error) {

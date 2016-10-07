@@ -31,7 +31,7 @@ watchDoNothing = function () {
     options.simulationDuration = 1000;
     options.display = true;
 
-    return testDoublePendulum(undefined, options);
+    return testDoublePendulum(null, options);
 };
 
 watchDoNothing().catch(function (error) {
