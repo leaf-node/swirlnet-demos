@@ -52,6 +52,7 @@ testDoublePendulum = function (net, options) {
     phyzzieOptions.sim = {};
     phyzzieOptions.sim.interactionsPerSecond   = 60;
     phyzzieOptions.sim.simStepsPerInteraction  = 1;
+    phyzzieOptions.sim.iterationsPerSimStep    = 10;
     phyzzieOptions.sim.maxStepMilliseconds     = 100;
     phyzzieOptions.graphics = {};
     phyzzieOptions.graphics.display            = options.display;
