@@ -23,7 +23,9 @@ process.on("message", function (message) {
     "use strict";
 
     multiTestDoublePendulum(swirlnet.makeNet(message.phenotype), message.options).then(function (result) {
+
         process.send(result);
+
     }).catch(function (error) {
 
         if (console.stack !== undefined) {
