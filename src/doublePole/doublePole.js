@@ -51,7 +51,7 @@ testDoublePole = function (net, options) {
     //phyzzieOptions.graphics.width              = 800;
     //phyzzieOptions.graphics.scale              = 300;
     //phyzzieOptions.graphics.lineWidth          = 1;
-    //phyzzieOptions.graphics.targetDiv          = "#draw";
+    //phyzzieOptions.graphics.targetDiv          = "draw";
     //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
 
