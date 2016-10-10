@@ -69,7 +69,6 @@ solve = function () {
     //netSolveOptions.noveltySearchOptions = {};
     //netSolveOptions.noveltySearchOptions.kNearestNeighbors = 15;
     //netSolveOptions.noveltySearchOptions.archiveThreshold = 6;
-    //netSolveOptions.noveltySearchOptions.behaviorDistanceFunction = function () { return 100; };
 
 
     return swirlnetSolverAsync(netSolveOptions);
