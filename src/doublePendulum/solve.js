@@ -69,6 +69,7 @@ solve = function () {
     //netSolveOptions.noveltySearchOptions = {};
     //netSolveOptions.noveltySearchOptions.kNearestNeighbors = 15;
     //netSolveOptions.noveltySearchOptions.archiveThreshold = 6;
+    //netSolveOptions.noveltySearchOptions.maxArchiveSize = 400;
 
 
     return swirlnetSolverAsync(netSolveOptions);
