@@ -13,9 +13,10 @@
 // limitations under the License.
 
 
-var phyzzie, testDoublePole;
+var phyzzie, assert, testDoublePole;
 
 phyzzie = require('phyzzie');
+assert = require('assert');
 
 // tests a net in double pole experiment
 testDoublePole = function (net, options) {
@@ -27,12 +28,12 @@ testDoublePole = function (net, options) {
         things, colors, phyzzieOptions,
         calculateFitness, resultsPromise;
 
-    console.assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
-    console.assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
+    assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
+    assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
 
-    console.assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
-    console.assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
-    console.assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
+    assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
+    assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
+    assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
 
 
     things = JSON.stringify(require('./things/things.json'));

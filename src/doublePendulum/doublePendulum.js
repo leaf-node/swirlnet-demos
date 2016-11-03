@@ -15,9 +15,10 @@
 
 /*jslint unparam: true */
 
-var phyzzie, testDoublePendulum, multiTestDoublePendulum;
+var phyzzie, assert, testDoublePendulum, multiTestDoublePendulum;
 
 phyzzie = require('phyzzie');
+assert = require('assert');
 
 // tests a net in double pendulum experiment
 testDoublePendulum = function (net, options) {
@@ -30,15 +31,15 @@ testDoublePendulum = function (net, options) {
         things, colors, phyzzieOptions,
         calculateFitness, resultsPromise;
 
-    console.assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
-    console.assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
+    assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
+    assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
 
-    console.assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
-    console.assert(typeof options.isUpright === "boolean", "doublePendulum.js: error: isUpright option must be a boolean");
-    console.assert(Array.isArray(options.polePushes), "doublePendulum.js: error: polePushes option must be an array");
-    console.assert(typeof options.calculateBehavior === "boolean", "doublePendulum.js: error: calculateBehavior option must be a boolean");
-    console.assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
-    console.assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
+    assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
+    assert(typeof options.isUpright === "boolean", "doublePendulum.js: error: isUpright option must be a boolean");
+    assert(Array.isArray(options.polePushes), "doublePendulum.js: error: polePushes option must be an array");
+    assert(typeof options.calculateBehavior === "boolean", "doublePendulum.js: error: calculateBehavior option must be a boolean");
+    assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
+    assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
 
     if (options.isUpright) {
         things = JSON.stringify(require('./things/thingsUpright.json'));
@@ -153,7 +154,7 @@ testDoublePendulum = function (net, options) {
 
             if (options.calculateBehavior) {
 
-                console.assert(options.simulationDuration !== Infinity, "doublePendulum: simulation duration must not be infinite when calculating behaviors.");
+                assert(options.simulationDuration !== Infinity, "doublePendulum: simulation duration must not be infinite when calculating behaviors.");
 
                 remainingBehaviorPoints = Math.floor(options.simulationDuration) - Math.floor(ticks / phyzzieOptions.sim.interactionsPerSecond);
 
