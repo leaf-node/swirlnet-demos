@@ -28,7 +28,7 @@ process.on("message", function (message) {
 
     }).catch(function (error) {
 
-        if (console.stack !== undefined) {
+        if (error.stack !== undefined) {
             console.log(error.stack);
         } else {
             console.log(error);
