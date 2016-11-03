@@ -47,18 +47,6 @@ multiTestDoublePendulum = function (net, options) {
 
     promiseChain = Promise.resolve({"fitness": 0, "behavior": []});
 
-
-    promiseChain = promiseChain.then(makeChainableTest(false, [0, 0]));
-
-    promiseChain = promiseChain.then(makeChainableTest(false, [0.3, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(false, [0, 0.3]));
-    promiseChain = promiseChain.then(makeChainableTest(false, [-0.3, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(false, [0, -0.3]));
-
-    promiseChain = promiseChain.then(function (result) {
-        return {"fitness": result.fitness * 2.6, "behavior": result.behavior};
-    });
-
     promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0]));
 
     promiseChain = promiseChain.then(makeChainableTest(true,  [0.1, 0]));
@@ -70,11 +58,6 @@ multiTestDoublePendulum = function (net, options) {
     promiseChain = promiseChain.then(makeChainableTest(true,  [0, 0.3]));
     promiseChain = promiseChain.then(makeChainableTest(true,  [-0.3, 0]));
     promiseChain = promiseChain.then(makeChainableTest(true,  [0, -0.3]));
-
-    promiseChain = promiseChain.then(makeChainableTest(true,  [1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, 1]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [-1, 0]));
-    promiseChain = promiseChain.then(makeChainableTest(true,  [0, -1]));
 
     return promiseChain;
 };

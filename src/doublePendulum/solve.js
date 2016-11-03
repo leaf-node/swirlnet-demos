@@ -48,8 +48,8 @@ solve = function () {
 
     netSolveOptions.genomeSettings = genomeSettings;
 
-    // theoretical fitness max: 60 * 26 === 1560
-    netSolveOptions.fitnessTarget = 1530;
+    // theoretical fitness max: 60 * 9 === 540
+    netSolveOptions.fitnessTarget = 500;
     netSolveOptions.maxGenerations = 10000;
     netSolveOptions.doNoveltySearch = doNoveltySearch;
 
