@@ -8,7 +8,7 @@
       "LICENSE"
     ],
   "dependencies": {
-      "swirlnet": "<=1.x",
+      "swirlnet.make-net": "<=1.0.x",
       "swirlnet-solver-async": "<=1.x",
       "phyzzie": "<=1.x",
       "assert": "1.x"

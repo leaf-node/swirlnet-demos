@@ -13,16 +13,16 @@
 // limitations under the License.
 
 
-var testDoublePole, swirlnet, onmessage;
+var testDoublePole, makeNet, onmessage;
 
 testDoublePole = require('./doublePole.js');
-swirlnet = require('swirlnet');
+makeNet = require('swirlnet.make-net');
 
 process.on("message", function (message) {
 
     "use strict";
 
-    testDoublePole(swirlnet.makeNet(message.phenotype), message.options).then(function (result) {
+    testDoublePole(makeNet(message.phenotype), message.options).then(function (result) {
 
         process.send(result);
 

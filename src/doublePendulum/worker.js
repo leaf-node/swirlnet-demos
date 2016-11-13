@@ -13,16 +13,16 @@
 // limitations under the License.
 
 
-var multiTestDoublePendulum, swirlnet, onmessage;
+var multiTestDoublePendulum, makeNet, onmessage;
 
 multiTestDoublePendulum = require('./doublePendulum-multi.js');
-swirlnet = require('swirlnet');
+makeNet = require('swirlnet.make-net');
 
 process.on("message", function (message) {
 
     "use strict";
 
-    multiTestDoublePendulum(swirlnet.makeNet(message.phenotype), message.options).then(function (result) {
+    multiTestDoublePendulum(makeNet(message.phenotype), message.options).then(function (result) {
 
         process.send(result);
 
