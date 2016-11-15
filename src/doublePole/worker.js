@@ -13,16 +13,22 @@
 // limitations under the License.
 
 
-var testDoublePole, makeNet, onmessage;
+var testDoublePole, genoToPheno, makeNet, onmessage;
 
 testDoublePole = require('./doublePole.js');
+
+genoToPheno = require('swirlnet.geno-to-pheno');
 makeNet = require('swirlnet.make-net');
 
 process.on("message", function (message) {
 
     "use strict";
 
-    testDoublePole(makeNet(message.phenotype), message.options).then(function (result) {
+    var phenotype;
+
+    phenotype = genoToPheno(message.genome);
+
+    testDoublePole(makeNet(phenotype), message.options).then(function (result) {
 
         process.send(result);
 

@@ -9,6 +9,7 @@
     ],
   "dependencies": {
       "swirlnet.make-net": "<=1.0.x",
+      "swirlnet.geno-to-pheno": "<=1.0.x",
       "swirlnet-solver-async": "<=1.x",
       "phyzzie": "<=1.x",
       "assert": "1.x"

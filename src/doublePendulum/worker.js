@@ -13,16 +13,22 @@
 // limitations under the License.
 
 
-var multiTestDoublePendulum, makeNet, onmessage;
+var multiTestDoublePendulum, genoToPheno, makeNet, onmessage;
 
 multiTestDoublePendulum = require('./doublePendulum-multi.js');
+
+genoToPheno = require('swirlnet.geno-to-pheno');
 makeNet = require('swirlnet.make-net');
 
 process.on("message", function (message) {
 
     "use strict";
 
-    multiTestDoublePendulum(makeNet(message.phenotype), message.options).then(function (result) {
+    var phenotype;
+
+    phenotype = genoToPheno(message.genome);
+
+    multiTestDoublePendulum(makeNet(phenotype), message.options).then(function (result) {
 
         process.send(result);
 
