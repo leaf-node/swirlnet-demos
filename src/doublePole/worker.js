@@ -24,11 +24,11 @@ process.on("message", function (message) {
 
     "use strict";
 
-    var phenotype;
+    var network;
 
-    phenotype = genoToPheno(message.genome);
+    network = makeNet(genoToPheno(message.genome));
 
-    testDoublePole(makeNet(phenotype), message.options).then(function (result) {
+    testDoublePole(network, message.options).then(function (result) {
 
         process.send(result);
 
