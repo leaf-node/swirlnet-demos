@@ -134,13 +134,9 @@ testDoublePendulum = function (net, options) {
         fitnessPoint *= Math.pow((cos1 + 1.001) / 2.001, 2);
         fitnessPoint *= Math.pow((cos2 + 1.001) / 2.001, 2);
         // reward for nearness to center
-        fitnessPoint *= centerCloseness;
-        // reward for slow motion 
-        fitnessPoint *= Math.pow(1 - ((Math.abs(v0 / 0.3) > 0.9) ? 0.9 : Math.abs(v0 / 0.3)), 2);
-        fitnessPoint *= Math.pow(1 - ((Math.abs(av1 / 10) > 0.9) ? 0.9 : Math.abs(av1 / 10)), 2);
-        fitnessPoint *= Math.pow(1 - ((Math.abs(av2 / 10) > 0.9) ? 0.9 : Math.abs(av2 / 10)), 2);
+        fitnessPoint *= Math.pow(centerCloseness, 2);
         // reward for slow accel
-        fitnessPoint *= 1 - Math.abs(force / (forceNormalization + 0.001));
+        fitnessPoint *= Math.pow(1 - Math.abs(force / (forceNormalization + 0.001)), 1 / 2);
 
         fitnessRecord.push(fitnessPoint);
 
