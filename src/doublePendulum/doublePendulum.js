@@ -38,7 +38,7 @@ testDoublePendulum = function (net, options) {
     assert(typeof options.isUpright === "boolean", "doublePendulum.js: error: isUpright option must be a boolean");
     assert(typeof options.calculateBehavior === "boolean", "doublePendulum.js: error: calculateBehavior option must be a boolean");
     assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
-    assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
+    assert(typeof options.display === "boolean", "doublePendulum.js: error: display option must be a boolean");
     assert(typeof options.polePushesCallback === "function" || options.polePushesCallback === undefined,
             "doublePendulum.js: error: polePushesCallback option must be a function or undefined.");
 
