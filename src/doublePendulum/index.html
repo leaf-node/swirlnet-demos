@@ -5,16 +5,78 @@
 
         <script defer src="./dp-browser.js"></script>
 
+        <script defer>
+
+var pushPole, nextPush;
+
+nextPush = [0, 0];
+
+pushPole = function (push) {
+
+    "use strict";
+
+    nextPush[0] += push[0];
+    nextPush[1] += push[1];
+};
+
+getNextPush = function () {
+
+    "use strict";
+
+    return [nextPush[0], nextPush[1]];
+}
+
+resetNextPush = function () {
+
+    "use strict";
+
+    nextPush = [0, 0];
+}
+
+        </script>
+
         <style>
-            body { margin: 0; padding: 0; background: #BBDDDD }
-            #draw { margin: 0 auto; padding: 0; display: table }
+
+body { margin: 0; padding: 0; background: #BBDDDD }
+#contents { min-width: 800px; position: relative;}
+
+#draw { margin: 0 auto; padding: 0; width: 800px; height: 600px; }
+
+#buttons { position: absolute; top: 400px; width: 100%; }
+
+#buttons ul { display: flex; justify-content: center; padding-left: 0px; }
+#buttons li { list-style: none; width: 60px; }
+#buttons button { display: block; margin: 0 auto; width: 50px;}
+
+#draw,#buttons { user-select: none; }
+
         </style>
 
     </head>
 
     <body>
 
-        <div id="draw"></div>
+        <div id="contents">
+            <div id="draw"></div>
+
+            <div id="buttons">
+                <ul>
+                    <li><button type="button" onclick="pushPole([0, -0.3]);">&lt; &lt;</button></li>
+                    <li><button type="button" onclick="pushPole([0, -0.1]);">&lt;</button></li>
+
+                    <li><button type="button" onclick="pushPole([0, 0.1]);">&gt;</button></li>
+                    <li><button type="button" onclick="pushPole([0, 0.3]);">&gt; &gt;</button></li>
+                </ul>
+                <ul>
+                    <li><button type="button" onclick="pushPole([-0.3, 0]);">&lt; &lt;</button></li>
+                    <li><button type="button" onclick="pushPole([-0.1, 0]);">&lt;</button></li>
+
+                    <li><button type="button" onclick="pushPole([0.1, 0]);">&gt;</button></li>
+                    <li><button type="button" onclick="pushPole([0.3, 0]);">&gt; &gt;</button></li>
+                </ul>
+            </div>
+
+        </div>
 
     </body>
 
