@@ -36,10 +36,11 @@ testDoublePendulum = function (net, options) {
 
     assert(typeof options.withVelocities === "boolean", "doublePendulum.js: error: withVelocities option must be a boolean");
     assert(typeof options.isUpright === "boolean", "doublePendulum.js: error: isUpright option must be a boolean");
-    assert(Array.isArray(options.polePushes), "doublePendulum.js: error: polePushes option must be an array");
     assert(typeof options.calculateBehavior === "boolean", "doublePendulum.js: error: calculateBehavior option must be a boolean");
     assert(typeof options.simulationDuration === "number", "doublePendulum.js: error: simulationDuration option must be a number");
     assert(typeof options.display === "boolean", "doublePendulum.js: error display option must be a boolean");
+    assert(typeof options.polePushesCallback === "function" || options.polePushesCallback === undefined,
+            "doublePendulum.js: error: polePushesCallback option must be a function or undefined.");
 
     if (options.isUpright) {
         things = JSON.stringify(require('./things/thingsUpright.json'));
@@ -79,7 +80,7 @@ testDoublePendulum = function (net, options) {
 
         var p0, a1, a2, v0, av1, av2, inputs, outputs, force,
             sin1, cos1, sin2, cos2, centerCloseness, fitnessPoint, fitness,
-            i, remainingBehaviorPoints;
+            i, remainingBehaviorPoints, polePushes;
 
         p0 = things.base.getPosition();
         v0 = things.base.getVelocity()[0];
@@ -97,10 +98,12 @@ testDoublePendulum = function (net, options) {
         sin2 = Math.sin(a2);
         cos2 = Math.cos(a2);
 
-        if (ticks === 0) {
+        if (options.polePushesCallback !== undefined) {
 
-            things.pendulum1.push([options.polePushes[0] * forceNormalization, 0]);
-            things.pendulum2.push([options.polePushes[1] * forceNormalization, 0]);
+            polePushes = options.polePushesCallback(ticks, phyzzieOptions.sim.interactionsPerSecond);
+
+            things.pendulum1.push([polePushes[0] * forceNormalization, 0]);
+            things.pendulum2.push([polePushes[1] * forceNormalization, 0]);
         }
 
         if (net !== null) {

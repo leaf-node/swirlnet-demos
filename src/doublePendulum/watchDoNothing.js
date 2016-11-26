@@ -26,10 +26,11 @@ watchDoNothing = function () {
     options = {};
     options.withVelocities = true;
     options.isUpright = true;
-    options.polePushes = [0, 0.3];
     options.calculateBehavior = false;
     options.simulationDuration = 1000;
     options.display = true;
+
+    options.polePushesCallback = function (ticks) { if (ticks === 0) { return [0.1, 0]; } return [0, 0]; };
 
     return testDoublePendulum(null, options);
 };

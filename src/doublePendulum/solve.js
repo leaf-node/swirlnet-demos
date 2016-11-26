@@ -47,8 +47,8 @@ solve = function () {
 
     netSolveOptions.genomeSettings = genomeSettings;
 
-    // theoretical fitness max: 60 * 9 === 540
-    netSolveOptions.fitnessTarget = 500;
+    // theoretical max fitness: 60
+    netSolveOptions.fitnessTarget = 57;
     netSolveOptions.maxGenerations = 10000;
     netSolveOptions.doNoveltySearch = doNoveltySearch;
 
@@ -57,7 +57,7 @@ solve = function () {
     //netSolveOptions.testFunction = require("./doublePendulum-multi.js");
     netSolveOptions.workerCount = os.cpus().length;
     /*jslint nomen: true*/
-    netSolveOptions.testFile = path.join(__dirname, "./doublePendulum-multi.js");
+    netSolveOptions.testFile = path.join(__dirname, "./doublePendulum-push.js");
     /*jslint nomen: false*/
 
 

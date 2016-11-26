@@ -16,7 +16,7 @@
 var makeNet, testDoublePendulum, demonstrate;
 
 makeNet = require('swirlnet.make-net');
-testDoublePendulum = require('./doublePendulum.js');
+testDoublePendulum = require('./doublePendulum-push.js');
 
 demonstrate = function () {
 
