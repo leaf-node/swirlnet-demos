@@ -54,7 +54,7 @@ solve = function () {
 
     netSolveOptions.useWorkers = true;
     //netSolveOptions.useWorkers = false;
-    //netSolveOptions.testFunction = require("./doublePendulum-multi.js");
+    //netSolveOptions.testFunction = require("./doublePendulum-push.js");
     netSolveOptions.workerCount = os.cpus().length;
     /*jslint nomen: true*/
     netSolveOptions.testFile = path.join(__dirname, "./doublePendulum-push.js");
