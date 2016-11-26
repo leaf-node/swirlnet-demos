@@ -27,7 +27,6 @@ demonstrate = function () {
     options = {};
     options.withVelocities = true;
     options.isUpright = true;
-    options.polePushes = [0, 0.3];
     options.calculateBehavior = false;
     options.simulationDuration = Infinity;
     options.display = true;
