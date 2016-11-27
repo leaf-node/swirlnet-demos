@@ -128,7 +128,7 @@ testDoublePendulum = function (net, options) {
 
         fitnessPoint  = 1;
         // not fallen off ledge
-        fitnessPoint *= (p0[1] > 0) ? 1 : 0;
+        fitnessPoint *= (p0[1] > 1) ? 1 : 0;
 
         // reward for more pendulum uprightness
         fitnessPoint *= Math.pow((cos1 + 1.001) / 2.001, 2);
