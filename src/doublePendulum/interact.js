@@ -39,7 +39,7 @@ interact = function () {
 
         thisPush = getNextPush();
         resetNextPush();
-        return thisPush;
+        return [thisPush, [0, 0.2]];
     };
 
 

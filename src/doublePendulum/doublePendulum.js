@@ -29,7 +29,8 @@ testDoublePendulum = function (net, options) {
         fitnessRecord, behavior,
         forceNormalization, maxTickCount,
         things, colors, phyzzieOptions,
-        calculateFitness, resultsPromise;
+        calculateFitness, resultsPromise,
+        pole1Force, pole2Force, pushPosition;
 
     assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
     assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
@@ -102,8 +103,16 @@ testDoublePendulum = function (net, options) {
 
             polePushes = options.polePushesCallback(ticks, phyzzieOptions.sim.interactionsPerSecond);
 
-            things.pendulum1.push([polePushes[0] * forceNormalization, 0]);
-            things.pendulum2.push([polePushes[1] * forceNormalization, 0]);
+            pole1Force      = polePushes[0][0];
+            pole2Force      = polePushes[0][1];
+            pushPosition    = polePushes[1];
+
+            if (pushPosition === undefined) {
+                pushPosition = [0, 0];
+            }
+
+            things.pendulum1.push([pole1Force * forceNormalization, 0], pushPosition);
+            things.pendulum2.push([pole2Force * forceNormalization, 0], pushPosition);
         }
 
         if (net !== null) {

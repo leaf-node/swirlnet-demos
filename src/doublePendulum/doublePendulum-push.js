@@ -24,33 +24,43 @@ pushTestDoublePendulum = function (net, options) {
 
     "use strict";
 
-    var pushes, cycleTime;
+    var pushes;
 
     options.isUpright = true;
 
-    cycleTime = 30;
-
     pushes = {
 
-        "1": [0.1, 0],
-        "2": [0, 0.1],
-        "3": [-0.1, 0],
-        "4": [0, -0.1],
+        "0": [[0.1, 0]],
 
-        "6": [0.3, 0],
-        "8": [0, 0.3],
-        "10": [-0.3, 0],
-        "12": [0, -0.3],
+        "6": [[0.1, 0]],
+        "7": [[0, 0.1]],
+        "8": [[-0.1, 0]],
+        "9": [[0, -0.1]],
 
-        "14": [-0.3, 0],
-        "16": [0.3, 0],
-        "18": [-0.3, 0],
-        "20": [0, 0.3],
+        "11": [[0.2, 0]],
+        "13": [[0, -0.2]],
+        "15": [[-0.2, 0]],
+        "17": [[0, 0.2]],
 
-        "22": [0.3, 0],
-        "24": [-0.3, 0],
-        "26": [0, -0.3],
-        "28": [0.3, 0]
+        "19": [[-0.3, 0]],
+        "21": [[0.3, 0]],
+        "23": [[0, -0.3]],
+        "25": [[0, 0.3]],
+
+        "27": [[0.1, 0],  [0, 0.2]],
+        "29": [[-0.1, 0], [0, 0.2]],
+        "31": [[0, -0.1], [0, 0.2]],
+        "33": [[0, 0.1],  [0, 0.2]],
+
+        "35": [[-0.15, 0], [0, 0.2]],
+        "37": [[0, 0.15],  [0, 0.2]],
+        "39": [[0.15, 0],  [0, 0.2]],
+        "41": [[0, -0.15], [0, 0.2]],
+
+        "43": [[-0.2, 0], [0, 0.2]],
+        "45": [[0, 0.2],  [0, 0.2]],
+        "47": [[0.2, 0],  [0, 0.2]],
+        "49": [[0, -0.2], [0, 0.2]]
     };
 
     options.polePushesCallback = function (ticks, ticksPerSecond) {
@@ -59,11 +69,11 @@ pushTestDoublePendulum = function (net, options) {
 
         seconds = ticks / ticksPerSecond;
 
-        if (seconds % 1 === 0 && pushes[seconds % cycleTime] !== undefined) {
-            return pushes[seconds % cycleTime];
+        if (seconds % 1 === 0 && pushes[seconds] !== undefined) {
+            return pushes[seconds];
         }
 
-        return [0, 0];
+        return [[0, 0]];
     };
 
     return testDoublePendulum(net, options);
