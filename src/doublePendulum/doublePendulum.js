@@ -30,7 +30,8 @@ testDoublePendulum = function (net, options) {
         forceNormalization, maxTickCount,
         things, colors, phyzzieOptions,
         calculateFitness, resultsPromise,
-        pole1Force, pole2Force, pushPosition;
+        pole1Force, pole2Force, pushPosition,
+        continueSim, simRestartWait, stillAlive;
 
     assert(typeof net === "object" || net === null, "doublePendulum.js: error: network parameter must be an object or null");
     assert(typeof options === "object", "doublePendulum.js: error: options parameter must be an object");
@@ -67,6 +68,7 @@ testDoublePendulum = function (net, options) {
     //phyzzieOptions.graphics.targetDiv          = "draw";
     //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
+    simRestartWait = 1.0;
 
     fitnessRecord = [];
     behavior = [];
@@ -76,6 +78,7 @@ testDoublePendulum = function (net, options) {
     maxTickCount = phyzzieOptions.sim.interactionsPerSecond * options.simulationDuration;
 
     ticks               = 0;
+    stillAlive          = 1;
 
     interactionCallback = function (things, deltaSimTime, resolve) {
 
@@ -135,12 +138,14 @@ testDoublePendulum = function (net, options) {
         centerCloseness = 1 - Math.abs(p0[0]);
         centerCloseness = (centerCloseness < 0.1) ? 0.1 : centerCloseness;
 
-        fitnessPoint  = 1;
         // not fallen off ledge
-        fitnessPoint *= (p0[1] > 1) ? 1 : 0;
+        stillAlive *= (p0[1] > 1) ? 1 : 0;
         // pendulum not fallen over
-        fitnessPoint *= (cos1 > 0) ? 1 : 0;
-        fitnessPoint *= (cos2 > 0) ? 1 : 0;
+        stillAlive *= (cos1 > 0) ? 1 : 0;
+        stillAlive *= (cos2 > 0) ? 1 : 0;
+
+        fitnessPoint  = 1;
+        fitnessPoint *= stillAlive;
 
         // reward for more pendulum uprightness
         fitnessPoint *= Math.pow((cos1 + 1.001) / 2.001, 2);
@@ -158,8 +163,17 @@ testDoublePendulum = function (net, options) {
             behavior = behavior.concat((sin1 + 1) / 2, (sin2 + 1) / 2);
         }
 
+        if (stillAlive === 0) {
+
+            if (options.display === false || simRestartWait <= 0) {
+                continueSim = 0;
+            } else {
+                simRestartWait -= deltaSimTime;
+            }
+        }
+
         // it's been long enough
-        if (fitnessPoint === 0 || ticks >= maxTickCount) {
+        if (continueSim === 0 || ticks >= maxTickCount) {
 
             fitness = calculateFitness(fitnessRecord);
 
