@@ -1,18 +1,20 @@
 {
   "name": "swirlnet-demos",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Physical balancing demos for the swirlnet neuroevolution library",
+  "url": "https://gitlab.com/sudoman/swirlnet-demos/issues",
+  "repository": "gitlab:sudoman/swirlnet-demos",
   "files": [
       "src",
       "README.md",
       "LICENSE"
     ],
   "dependencies": {
-      "swirlnet.make-net": "<=1.0.x",
-      "swirlnet.geno-to-pheno": "<=1.0.x",
-      "swirlnet-solver-async": "<=1.x",
-      "phyzzie": "<=1.x",
-      "assert": "1.x"
+      "swirlnet.make-net": "1.0.x",
+      "swirlnet.geno-to-pheno": "1.0.x",
+      "swirlnet-solver-async": "1.0.x",
+      "phyzzie": "1.0.x",
+      "assert": "1.4.x"
   },
   "author": "Andrew Engelbrecht",
   "license": "Apache-2.0"
