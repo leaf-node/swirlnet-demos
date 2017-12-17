@@ -13,7 +13,7 @@
       "swirlnet.make-net": "1.0.x",
       "swirlnet.geno-to-pheno": "1.0.x",
       "swirlnet-solver-async": "1.0.x",
-      "phyzzie": "1.0.x",
+      "phyzzie": "2.0.x",
       "assert": "1.4.x"
   },
   "author": "Andrew Engelbrecht",

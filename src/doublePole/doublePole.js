@@ -57,7 +57,7 @@ testDoublePole = function (net, options) {
 
 
     fitnessRecord = [];
-    forceNormalization = 0.05;
+    forceNormalization = 0.005;
 
     elapsedSimTime      = 0;
 
