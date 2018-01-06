@@ -14,7 +14,7 @@ watchDoNothing: Makefile watchDoNothing.js doublePendulum.js latest-solution.jso
 	browserify watchDoNothing.js -o dp-browser-alt.js
 
 latest-solution.json:
-	ln -sf example-partial-solution-0.json latest-solution.json
+	ln -sf example-upright-solution-0.json latest-solution.json
 
 
 clean:
