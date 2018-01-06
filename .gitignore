@@ -5,6 +5,7 @@
 node_modules
 
 src/*/dp-browser.js
+src/*/dp-browser-alt.js
 src/*/solutions/
 src/*/latest-solution.json
 
