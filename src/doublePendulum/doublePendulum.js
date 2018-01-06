@@ -140,9 +140,12 @@ testDoublePendulum = function (net, options) {
 
         // not fallen off ledge
         stillAlive *= (p0[1] > 1) ? 1 : 0;
-        // pendulum not fallen over
-        stillAlive *= (cos1 > 0) ? 1 : 0;
-        stillAlive *= (cos2 > 0) ? 1 : 0;
+
+        if (options.isUpright) {
+            // pendulum not fallen over
+            stillAlive *= (cos1 > 0) ? 1 : 0;
+            stillAlive *= (cos2 > 0) ? 1 : 0;
+        }
 
         fitnessPoint  = 1;
         fitnessPoint *= stillAlive;
