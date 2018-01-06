@@ -48,12 +48,12 @@ testDoublePole = function (net, options) {
     phyzzieOptions.graphics = {};
     phyzzieOptions.graphics.display            = options.display;
 
-    //phyzzieOptions.graphics.height             = 600;
-    //phyzzieOptions.graphics.width              = 800;
-    //phyzzieOptions.graphics.scale              = 300;
-    //phyzzieOptions.graphics.lineWidth          = 1;
-    //phyzzieOptions.graphics.targetDiv          = "draw";
-    //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
+    phyzzieOptions.graphics.height             = 350;
+    phyzzieOptions.graphics.width              = 300;
+    phyzzieOptions.graphics.scale              = 300;
+    phyzzieOptions.graphics.lineWidth          = 1;
+    phyzzieOptions.graphics.targetDiv          = "drawPole";
+    phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
 
     fitnessRecord = [];

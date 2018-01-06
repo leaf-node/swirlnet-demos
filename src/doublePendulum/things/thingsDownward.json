@@ -3,25 +3,25 @@
         {
             "id": "ground",
             "options": {
-                "body": {"isStatic": true, "position": [0, 1], "angle": 0},
-                "shape": {"type": "box", "width": 1, "height": 0.05, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1 }
+                "body": {"isStatic": true, "position": [0, 0.5], "angle": 0},
+                "shape": {"type": "box", "width": 0.98, "height": 0.05, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1 }
             }
         },{
             "id": "base",
             "options": {
-                "body": {"position": [0, 1.075], "angle": 0},
+                "body": {"position": [0, 0.575], "angle": 0},
                 "shape": {"type": "box", "width": 0.2, "height": 0.1, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1, "groupIndex": 1}
             }
         },{
             "id": "pendulum1",
             "options": {
-                "body": {"position": [0, 0.875], "angle": 3.141592653589793},
+                "body": {"position": [0, 0.375], "angle": 3.141592653589793},
                 "shape": {"type": "box", "width": 0.02, "height": 0.4, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 2, "groupIndex": 1}
             }
         },{
             "id": "pendulum2",
             "options": {
-                "body": {"position": [0, 0.475], "angle": 3.141592653589793},
+                "body": {"position": [0, -0.025], "angle": 3.141592653589793},
                 "shape": {"type": "box", "width": 0.02, "height": 0.4, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 2, "groupIndex": 1}
             }
         }
@@ -31,12 +31,12 @@
             "type": "revolute",
             "bodyA": "base",
             "bodyB": "pendulum1",
-            "anchor": [0, 1.075]
+            "anchor": [0, 0.575]
         },{
             "type": "revolute",
             "bodyA": "pendulum1",
             "bodyB": "pendulum2",
-            "anchor": [0, 0.675]
+            "anchor": [0, 0.175]
         }
     ]
 }

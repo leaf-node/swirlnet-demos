@@ -6,15 +6,51 @@
         <script defer src="./dp-browser.js"></script>
 
         <style>
-            body { margin: 0; padding: 0; background: #BBDDDD }
-            #draw { margin: 0 auto; padding: 0; display: table }
+body { background: #000000; }
+
+#pendulumContents { margin: 10px auto; padding: 0; width: 300px; }
+#poleContents     { margin: 10px auto; padding: 0; width: 300px; }
+
+#drawPendulum { margin: 0; padding: 0; height: 350px; width: 300px; }
+#buttons      { margin: 0; padding: 0;                width: 300px; }
+#drawPole     { margin: 0; padding: 0; height: 350px; width: 300px; }
+
+#buttons ul { display: flex; justify-content: center; padding-left: 0px; }
+#buttons li { list-style: none; width: 60px; }
+#buttons button { display: inline-block; margin: 0; width: 50px; background-color: #000000; border: 1px solid #00FF00; border-radius: 8px; color: #00FF00; }
+
+
+#drawPendulum,#drawPole,#buttons { user-select: none; }
+#buttons button:focus { outline: 0; }
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+#buttons button:active {
+    -webkit-animation-name: button-animation;
+    -webkit-animation-duration: 0.3s;
+
+    animation-name: button-animation;
+    animation-duration: 0.3s;
+}
+
+@-webkit-keyframes button-animation {
+    from { background: #007700; }
+    to   { background: default; }
+}
+
+@keyframes button-animation {
+    from { background: #007700; }
+    to   { background: default; }
+}
         </style>
 
     </head>
-
     <body>
 
-        <div id="draw"></div>
+        <div id="pendulumContents">
+            <div id="drawPole"></div>
+        </div>
 
     </body>
 

@@ -6,7 +6,6 @@
         <script defer src="./dp-browser.js"></script>
 
         <script defer>
-
 var pushPole, nextPush;
 
 nextPush = [0, 0];
@@ -32,53 +31,73 @@ resetNextPush = function () {
 
     nextPush = [0, 0];
 }
-
         </script>
 
         <style>
+body { background: #000000; }
 
-body { margin: 0; padding: 0; background: #BBDDDD }
-#contents { min-width: 800px; position: relative;}
+#pendulumContents { margin: 10px auto; padding: 0; width: 300px; }
+#poleContents     { margin: 10px auto; padding: 0; width: 300px; }
 
-#draw { margin: 0 auto; padding: 0; width: 800px; height: 600px; }
-
-#buttons { position: absolute; top: 400px; width: 100%; }
+#drawPendulum { margin: 0; padding: 0; height: 350px; width: 300px; }
+#buttons      { margin: 0; padding: 0;                width: 300px; }
+#drawPole     { margin: 0; padding: 0; height: 350px; width: 300px; }
 
 #buttons ul { display: flex; justify-content: center; padding-left: 0px; }
 #buttons li { list-style: none; width: 60px; }
-#buttons button { display: block; margin: 0 auto; width: 50px;}
+#buttons button { display: inline-block; margin: 0; width: 50px; background-color: #000000; border: 1px solid #00FF00; border-radius: 8px; color: #00FF00; }
 
-#draw,#buttons { -moz-user-select: none; -webkit-user-select: none; user-select: none; }
 
+#drawPendulum,#drawPole,#buttons { user-select: none; }
+#buttons button:focus { outline: 0; }
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+#buttons button:active {
+    -webkit-animation-name: button-animation;
+    -webkit-animation-duration: 0.3s;
+
+    animation-name: button-animation;
+    animation-duration: 0.3s;
+}
+
+@-webkit-keyframes button-animation {
+    from { background: #007700; }
+    to   { background: default; }
+}
+
+@keyframes button-animation {
+    from { background: #007700; }
+    to   { background: default; }
+}
         </style>
 
     </head>
-
     <body>
 
-        <div id="contents">
-            <div id="draw"></div>
+        <div id="pendulumContents">
+            <div id="drawPendulum"></div>
 
             <div id="buttons">
                 <ul>
-                    <li><button type="button" onclick="pushPole([0, -0.2]);">&lt; &lt;</button></li>
-                    <li><button type="button" onclick="pushPole([0, -0.1]);">&lt;</button></li>
+                    <li><button onmousedown="pushPole([0, -0.2]);">&lt; &lt;</button></li>
+                    <li><button onmousedown="pushPole([0, -0.1]);">&lt;</button></li>
 
-                    <li><button type="button" onclick="pushPole([0, 0.1]);">&gt;</button></li>
-                    <li><button type="button" onclick="pushPole([0, 0.2]);">&gt; &gt;</button></li>
+                    <li><button onmousedown="pushPole([0, 0.1]);">&gt;</button></li>
+                    <li><button onmousedown="pushPole([0, 0.2]);">&gt; &gt;</button></li>
                 </ul>
                 <ul>
-                    <li><button type="button" onclick="pushPole([-0.2, 0]);">&lt; &lt;</button></li>
-                    <li><button type="button" onclick="pushPole([-0.1, 0]);">&lt;</button></li>
+                    <li><button onmousedown="pushPole([-0.2, 0]);">&lt; &lt;</button></li>
+                    <li><button onmousedown="pushPole([-0.1, 0]);">&lt;</button></li>
 
-                    <li><button type="button" onclick="pushPole([0.1, 0]);">&gt;</button></li>
-                    <li><button type="button" onclick="pushPole([0.2, 0]);">&gt; &gt;</button></li>
+                    <li><button onmousedown="pushPole([0.1, 0]);">&gt;</button></li>
+                    <li><button onmousedown="pushPole([0.2, 0]);">&gt; &gt;</button></li>
                 </ul>
             </div>
 
         </div>
 
     </body>
-
 </html>
 

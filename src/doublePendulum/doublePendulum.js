@@ -61,12 +61,12 @@ testDoublePendulum = function (net, options) {
     phyzzieOptions.graphics = {};
     phyzzieOptions.graphics.display            = options.display;
 
-    //phyzzieOptions.graphics.height             = 600;
-    //phyzzieOptions.graphics.width              = 800;
-    //phyzzieOptions.graphics.scale              = 300;
-    //phyzzieOptions.graphics.lineWidth          = 1;
-    //phyzzieOptions.graphics.targetDiv          = "draw";
-    //phyzzieOptions.graphics.renderOptions      = {"transparent": true};
+    phyzzieOptions.graphics.height             = 350;
+    phyzzieOptions.graphics.width              = 300;
+    phyzzieOptions.graphics.scale              = 300;
+    phyzzieOptions.graphics.lineWidth          = 1;
+    phyzzieOptions.graphics.targetDiv          = "drawPendulum";
+    phyzzieOptions.graphics.renderOptions      = {"transparent": true};
 
     simRestartWait = 1.0;
 
@@ -139,7 +139,7 @@ testDoublePendulum = function (net, options) {
         centerCloseness = (centerCloseness < 0.1) ? 0.1 : centerCloseness;
 
         // not fallen off ledge
-        stillAlive *= (p0[1] > 1) ? 1 : 0;
+        stillAlive *= (p0[1] > 0) ? 1 : 0;
 
         if (options.isUpright) {
             // pendulum not fallen over

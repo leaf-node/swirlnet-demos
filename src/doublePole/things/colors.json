@@ -1,9 +1,9 @@
 {
     "colors":
     {
-        "ground":   {"line": "0x000000", "fill": "0x7F7F7F"},
-        "base":     {"line": "0x000000", "fill": "0xDFDFFF"},
-        "pole1":    {"line": "0x000000", "fill": "0xFFFFFF"},
-        "pole2":    {"line": "0x000000", "fill": "0xFFFFFF"}
+        "ground":   {"line": "0xFF00FF", "fill": "0x600060"},
+        "base":     {"line": "0x0033CC", "fill": "0x001250"},
+        "pole1":    {"line": "0x00FF00", "fill": "0x006000"},
+        "pole2":    {"line": "0x00FF00", "fill": "0x006000"}
     }
 }

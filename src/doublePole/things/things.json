@@ -3,13 +3,13 @@
         {
             "id": "ground",
             "options": {
-                "body": {"isStatic": true, "position": [0, 0], "angle": 0},
-                "shape": {"type": "box", "width": 1, "height": 0.1, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1}
+                "body": {"isStatic": true, "position": [0, 0.035], "angle": 0},
+                "shape": {"type": "box", "width": 0.98, "height": 0.05, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1}
             }
         },{
             "id": "base",
             "options": {
-                "body": {"position": [0, 0.1], "angle": 0},
+                "body": {"position": [0, 0.11], "angle": 0},
                 "shape": {"type": "box", "width": 0.2, "height": 0.1, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 1, "groupIndex": 1}
             }
         },{
@@ -21,7 +21,7 @@
         },{
             "id": "pole2",
             "options": {
-                "body": {"position": [0.1, 0.2], "angle": 0},
+                "body": {"position": [0.1, 0.21], "angle": 0},
                 "shape": {"type": "box", "width": 0.02, "height": 0.1, "friction": 0.1, "density": 1, "elasticity": 0.2, "layers": 2, "groupIndex": 1}
             }
         }
@@ -31,12 +31,12 @@
             "type": "revolute",
             "bodyA": "base",
             "bodyB": "pole1",
-            "anchor": [-0.1, 0.15]
+            "anchor": [-0.1, 0.16]
         },{
             "type": "revolute",
             "bodyA": "base",
             "bodyB": "pole2",
-            "anchor": [0.1, 0.15]
+            "anchor": [0.1, 0.16]
         }
     ]
 }
