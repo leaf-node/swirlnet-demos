@@ -73,7 +73,7 @@ testDoublePendulum = function (net, options) {
     fitnessRecord = [];
     behavior = [];
 
-    forceNormalization  = 0.001;
+    forceNormalization  = 0.002;
 
     maxTickCount = phyzzieOptions.sim.interactionsPerSecond * options.simulationDuration;
 

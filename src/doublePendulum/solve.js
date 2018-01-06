@@ -29,7 +29,7 @@ solve = function () {
 
     genomeSettings = {
 
-        "populationSize":               150,
+        "populationSize":               1000,
 
         "disjointCoefficient":          1.0,
         "excessCoefficient":            1.0,
@@ -47,7 +47,7 @@ solve = function () {
 
     netSolveOptions.genomeSettings = genomeSettings;
 
-    // theoretical max fitness: 60
+    // theoretical max fitness: 120
     netSolveOptions.fitnessTarget = 114;
     netSolveOptions.maxGenerations = 10000;
     netSolveOptions.doNoveltySearch = doNoveltySearch;

@@ -64,7 +64,7 @@ testDoublePole = function (net, options) {
     interactionCallback = function (things, deltaSimTime, resolve) {
 
         var p0, a1, a2, v0, v1, v2, inputs, outputs, force,
-            sideways, centerCloseness, fitnessPoint;
+            fallen_over, centerCloseness, fitnessPoint;
 
         elapsedSimTime += deltaSimTime;
 
@@ -102,7 +102,7 @@ testDoublePole = function (net, options) {
         }
 
 
-        sideways = Math.PI / 2;
+        fallen_over = Math.PI * 3 / 4;
 
         centerCloseness = 1 - Math.abs(p0[0]);
         centerCloseness = (centerCloseness > 0.1) ? centerCloseness : 0.1;
@@ -111,12 +111,12 @@ testDoublePole = function (net, options) {
         // not fallen off ledge
         fitnessPoint *= (p0[1] > 0) ? 1 : 0;
         // pole not fallen over
-        fitnessPoint *= (Math.abs(a1) < sideways) ? 1 : 0;
-        fitnessPoint *= (Math.abs(a2) < sideways) ? 1 : 0;
+        fitnessPoint *= (Math.abs(a1) < fallen_over) ? 1 : 0;
+        fitnessPoint *= (Math.abs(a2) < fallen_over) ? 1 : 0;
 
         // reward for more pole uprightness
-        fitnessPoint *= ((sideways - Math.abs(a1)) / sideways);
-        fitnessPoint *= ((sideways - Math.abs(a2)) / sideways);
+        fitnessPoint *= ((fallen_over - Math.abs(a1)) / fallen_over);
+        fitnessPoint *= ((fallen_over - Math.abs(a2)) / fallen_over);
         // reward for nearness to center
         fitnessPoint *= centerCloseness;
         // reward for slow motion 
