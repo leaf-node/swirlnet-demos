@@ -1,6 +1,6 @@
 {
   "name": "swirlnet-demos",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Physical balancing demos for the swirlnet neuroevolution library",
   "url": "https://gitlab.com/sudoman/swirlnet-demos/issues",
   "repository": "gitlab:sudoman/swirlnet-demos",
