@@ -47,8 +47,7 @@ body { background: #000000; }
 #buttons li { list-style: none; width: 60px; }
 #buttons button { display: inline-block; margin: 0; width: 50px; background-color: #000000; border: 1px solid #00FF00; border-radius: 8px; color: #00FF00; }
 
-
-#drawPendulum,#drawPole,#buttons { user-select: none; }
+#drawPendulum,#drawPole,#buttons { user-select: none; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 #buttons button:focus { outline: 0; }
 
 :focus {outline:none;}
@@ -64,12 +63,12 @@ body { background: #000000; }
 
 @-webkit-keyframes button-animation {
     from { background: #007700; }
-    to   { background: default; }
+    to   { background: #000000; }
 }
 
 @keyframes button-animation {
     from { background: #007700; }
-    to   { background: default; }
+    to   { background: #000000; }
 }
         </style>
 
