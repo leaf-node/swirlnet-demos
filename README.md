@@ -67,3 +67,6 @@ challenges. This is why later generations take longer to test.
 
 This software is licensed under the Apache License, Version 2.0
 
+The authors of swirlnet claim no license over the networks, genomes and
+phenotypes evolved using this library.
+
