@@ -2,8 +2,8 @@
   "name": "swirlnet-demos",
   "version": "1.1.0",
   "description": "Physical balancing demos for the swirlnet neuroevolution library",
-  "url": "https://gitlab.com/sudoman/swirlnet-demos/issues",
-  "repository": "gitlab:sudoman/swirlnet-demos",
+  "url": "https://github.com/leaf-node/swirlnet-demos/issues",
+  "repository": "github:leaf-node/swirlnet-demos",
   "files": [
       "src",
       "README.md",
